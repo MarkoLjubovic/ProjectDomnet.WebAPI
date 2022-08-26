@@ -1,0 +1,32 @@
+﻿@using ProjectDomnet.Models
+@model VehicleModel
+
+<form method="post" asp-action="Delete">
+    <input asp-for="Id" hidden/>
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Delete VehicleModel</h2>
+            <hr/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ModelName">Name</label>
+            <input asp-for="ModelName" disabled class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ModelAbrv">MakeAbrv</label>
+            <input asp-for="ModelAbrv" disabled class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="VehicleMake.Name">VehicleMake</label>
+            <input asp-for="VehicleMake.Name" disabled class="form-control"/>
+        </div>
+         <div class="mb-3">
+            <label asp-for="VehicleMake.MakeAbrv">VehicleMake</label>
+            <input asp-for="VehicleMake.MakeAbrv" disabled class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+        <a asp-controller="VehicleModel" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
+</form>

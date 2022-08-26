@@ -1,0 +1,37 @@
+﻿@using ProjectDomnet.WebAPI.ProjectDtos.VehicleModelDto
+
+@model EditVehicleModel
+
+<form method="post" asp-action="Edit">
+    <input type="hidden" value="MakeId" id="MakeId" />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Edit VehicleModel</h2>
+            <hr/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ModelName">Name</label>
+            <input asp-for="ModelName" class="form-control"/>
+            <span asp-validation-for="ModelName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ModelAbrv">ModelAbrv</label>
+            <input asp-for="ModelAbrv" class="form-control"/>
+            <span asp-validation-for="ModelAbrv" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="VehicleMake.Name">VehicleMakeName</label>
+            <input asp-for="VehicleMake.Name" class="form-control"/>
+            <span asp-validation-for="VehicleMake.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="VehicleMake.MakeAbrv">VehicleMakeAbrv</label>
+            <input asp-for="VehicleMake.MakeAbrv" class="form-control"/>
+            <span asp-validation-for="VehicleMake.MakeAbrv" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+        <a asp-controller="VehicleModel" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
+</form>
