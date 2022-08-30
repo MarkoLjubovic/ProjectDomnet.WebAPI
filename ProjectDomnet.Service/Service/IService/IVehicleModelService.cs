@@ -14,6 +14,6 @@ namespace ProjectDomnet.Service.Service.IService
         Task CreateModelAsync(VehicleModel entity);
         Task DeleteModelAsync(VehicleModel entity);
         Task EditModelAsync(VehicleModel entity);
-        Task<(List<VehicleModel>, int)> GetAllAsync(Page page);
+        Task<(List<VehicleModel>, int)> GetAllAsync(Sorting sorting, Paging paging, Filtering filtering);
     }
 }

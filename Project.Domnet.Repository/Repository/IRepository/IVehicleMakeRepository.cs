@@ -15,6 +15,6 @@ namespace ProjectDomnet.Repository.Repository.IRepository
         Task DeleteMakeAync(VehicleMake entity);
         Task EditMakeAsync(VehicleMake entity);
         Task<VehicleMake> GetMakeByIdAync(int id);
-        Task<(List<VehicleMake>, int)> GetAllAsync(Page page);
+        Task<(List<VehicleMake>, int)> GetAllAsync(Sorting sorting, Paging paging, Filtering filtering);
     }
 }

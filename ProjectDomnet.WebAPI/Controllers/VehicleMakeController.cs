@@ -116,22 +116,25 @@ namespace ProjectDomnet.WebAPI.Controllers
             else
                 searchString = "";
 
-            (var vehicleMakes, int totalPages) = await _vehicleMakeService.GetAllAsync(new Common.Page()
-            {
-                PgIndex= pgNumber ?? 0,
-                PgFilter= searchString,
-                SortOrder= sortOrder
-            });
+            Paging paging = new();
+            Filtering filtering = new();
+            Sorting sorting = new();
+
+            paging.PgIndex = pgNumber ?? 0;
+            filtering.PgFilter = searchString;
+            sorting.SortOrder = sortOrder;
+
+            (var vehicleMakes, int totalPages) = await _vehicleMakeService.GetAllAsync(sorting, paging, filtering);
 
             ViewData["Filter"] = searchString;
 
             var model = new VehicleMakePage()
             {
                 VehicleMakesModel = vehicleMakes,
-                page = new Common.Page()
+                paging = new Paging()
                 {
                     PgIndex= pgNumber ?? 0,
-                    NumPages= totalPages
+                    NumOfPages= totalPages
                 },
             };
 

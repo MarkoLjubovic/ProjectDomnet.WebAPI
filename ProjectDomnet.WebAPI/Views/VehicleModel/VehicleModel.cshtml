@@ -55,14 +55,14 @@
 </div>>
 
 @{
-    var prev = Model.page.PgIndex <= 0 ? "disabled" : "";
-    var next = Model.page.PgIndex >= Model.page.NumPages ? "disabled" : "";
+    var prev = Model.paging.PgIndex <= 0 ? "disabled" : "";
+    var next = Model.paging.PgIndex >= Model.paging.NumOfPages ? "disabled" : "";
 }
 
 <a asp-route-sortOrder="@ViewData["Sort"]" asp-route-currentFilter="@ViewData["Filter"]"
-    asp-route-pgNumber="@(Model.page.PgIndex-1)"
+    asp-route-pgNumber="@(Model.paging.PgIndex-1)"
     asp-controller="VehicleModel" asp-action="VehicleModelPage" class="btn btn-primary @prev">Prev</a>
 
 <a asp-route-sortOrder="@ViewData["Sort"]" asp-route-currentFilter="@ViewData["Filter"]"
-    asp-route-pgNumber="@(Model.page.PgIndex+1)"
+    asp-route-pgNumber="@(Model.paging.PgIndex+1)"
     asp-controller="VehicleModel" asp-action="VehicleModelPage" class="btn btn-secondary @next">Next</a>

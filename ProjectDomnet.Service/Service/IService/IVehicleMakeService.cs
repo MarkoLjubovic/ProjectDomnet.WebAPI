@@ -14,6 +14,6 @@ namespace ProjectDomnet.Service.Service.IService
         Task DeleteMakeAsync(VehicleMake entity);
         Task EditMakeAsync(VehicleMake entity);
         Task<VehicleMake> GetMakeByIdAsync(int id);
-        Task<(List<VehicleMake>, int)> GetAllAsync(Page page);
+        Task<(List<VehicleMake>, int)> GetAllAsync(Sorting sorting, Paging paging, Filtering filtering);
     }
 }

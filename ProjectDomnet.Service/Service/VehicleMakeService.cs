@@ -34,9 +34,9 @@ namespace ProjectDomnet.Service.Service
             await _vehicleMakeRepository.EditMakeAsync(entity);
         }
 
-        public async Task<(List<VehicleMake>, int)> GetAllAsync(Page page)
+        public async Task<(List<VehicleMake>, int)> GetAllAsync(Sorting sorting, Paging paging, Filtering filtering)
         {
-            return await _vehicleMakeRepository.GetAllAsync(page);
+            return await _vehicleMakeRepository.GetAllAsync(sorting, paging, filtering);
         }
 
         public Task<VehicleMake> GetMakeByIdAsync(int id)

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectDomnet.Common
 {
-    public interface IPaging
+    public class Filtering
     {
-        public int? PgIndex { get; set; }
-        public int PgSize { get; set; }
-        public int NumPages { get; set; }
+        public string PgFilter { get; set; } = "";
     }
 }

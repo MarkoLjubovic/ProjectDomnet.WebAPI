@@ -41,16 +41,16 @@ namespace ProjectDomnet.Repository.Repository
             return await _db.VehicleModels.Include(i=>i.VehicleMake).FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<(List<VehicleModel>, int)> GetAllAsync(Page page)
+        public async Task<(List<VehicleModel>, int)> GetAllAsync(Sorting sorting, Paging paging, Filtering filtering)
         {
             IQueryable<VehicleModel> vehicleModels;
 
-            if (!String.IsNullOrEmpty(page.PgFilter))
-                vehicleModels = _db.VehicleModels.Where(a => a.ModelName.Contains(page.PgFilter)).AsQueryable();
+            if (!String.IsNullOrEmpty(filtering.PgFilter))
+                vehicleModels = _db.VehicleModels.Where(a => a.ModelName.Contains(filtering.PgFilter)).AsQueryable();
             else
                 vehicleModels = _db.VehicleModels.AsQueryable();
 
-            switch (page.SortOrder)
+            switch (sorting.SortOrder)
             {
                 case "name":
                     vehicleModels = vehicleModels.OrderBy(a => a.ModelName);
@@ -70,7 +70,7 @@ namespace ProjectDomnet.Repository.Repository
             {
                 totalPages--;
             }
-            return (await vehicleModels.Skip(page.PgSize * (int)page.PgIndex).Take(page.PgSize).ToListAsync(), totalPages);
+            return (await vehicleModels.Skip(paging.PgSize * (int)paging.PgIndex).Take(paging.PgSize).ToListAsync(), totalPages);
         }
     }
 }

@@ -38,9 +38,9 @@ namespace ProjectDomnet.Service.Service
             return await _vehicleModelRepository.GetModelByIdAsync(id);
         }
 
-        public async Task<(List<VehicleModel>, int)> GetAllAsync(Page page)
+        public async Task<(List<VehicleModel>, int)> GetAllAsync(Sorting sorting, Paging paging, Filtering filtering)
         {
-            return await _vehicleModelRepository.GetAllAsync(page);
+            return await _vehicleModelRepository.GetAllAsync(sorting, paging, filtering);
         }
     }
 }

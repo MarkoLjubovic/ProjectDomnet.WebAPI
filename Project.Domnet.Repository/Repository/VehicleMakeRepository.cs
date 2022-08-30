@@ -41,16 +41,16 @@ namespace ProjectDomnet.Repository.Repository
         }
 
 
-        public async Task<(List<VehicleMake>, int)> GetAllAsync(Page page)
+        public async Task<(List<VehicleMake>, int)> GetAllAsync(Sorting sorting, Paging paging, Filtering filtering)
         {
             IQueryable<VehicleMake> vehicleMakes;
 
-            if (!String.IsNullOrEmpty(page.PgFilter))
-                vehicleMakes = _db.VehicleMakes.Where(a => a.Name.Contains(page.PgFilter)).AsQueryable();
+            if (!String.IsNullOrEmpty(filtering.PgFilter))
+                vehicleMakes = _db.VehicleMakes.Where(a => a.Name.Contains(filtering.PgFilter)).AsQueryable();
             else
                 vehicleMakes = _db.VehicleMakes.AsQueryable();
 
-            switch (page.SortOrder)
+            switch (sorting.SortOrder)
             {
                 case "name":
                     vehicleMakes = vehicleMakes.OrderBy(a => a.Name);
@@ -70,7 +70,7 @@ namespace ProjectDomnet.Repository.Repository
             {
                 totalPages--;
             }
-            return (await vehicleMakes.Skip(page.PgSize * (int)page.PgIndex).Take(page.PgSize).ToListAsync(), totalPages);
+            return (await vehicleMakes.Skip(paging.PgSize * (int)paging.PgIndex).Take(paging.PgSize).ToListAsync(), totalPages);
         }
     }
 }

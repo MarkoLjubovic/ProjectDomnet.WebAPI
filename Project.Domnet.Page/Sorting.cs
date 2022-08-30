@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectDomnet.Common
 {
-    public interface ISorting
+    public class Sorting
     {
-        public string SortOrder { get; set; }
+        public string SortOrder { get; set; } = "";
     }
 }
