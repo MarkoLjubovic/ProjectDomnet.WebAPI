@@ -5,9 +5,9 @@ using ProjectDomnet.WebAPI.ProjectDtos.VehicleModelDto;
 
 namespace ProjectDomnet.WebAPI.MapperConfig
 {
-    public class MapperConfig:Profile
+    public class MappingProfile:Profile
     {
-        public MapperConfig()
+        public MappingProfile()
         {
             CreateMap<VehicleMake, CreateVehicleMake>().ReverseMap();
             CreateMap<VehicleMake, EditVehicleMake>().ReverseMap();

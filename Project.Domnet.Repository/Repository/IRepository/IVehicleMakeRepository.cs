@@ -11,11 +11,10 @@ namespace ProjectDomnet.Repository.Repository.IRepository
 {
     public interface IVehicleMakeRepository
     {
-        Task CreateMake(VehicleMake entity);
-        Task DeleteMake(VehicleMake entity);
-        Task EditMake(VehicleMake entity);
-        Task<VehicleMake> GetMakeById(int id);
-        Task<IEnumerable<VehicleMake>> GetAll();
-        Task<(List<VehicleMake>, int)> VehicleMakePagingAndSorting(PagingSorting pagingSorting);
+        Task CreateMakeAsync(VehicleMake entity);
+        Task DeleteMakeAync(VehicleMake entity);
+        Task EditMakeAsync(VehicleMake entity);
+        Task<VehicleMake> GetMakeByIdAync(int id);
+        Task<(List<VehicleMake>, int)> GetAllAsync(Page page);
     }
 }

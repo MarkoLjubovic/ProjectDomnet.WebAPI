@@ -5,6 +5,10 @@ using ProjectDomnet.DAL.Data;
 using ProjectDomnet.Service.Service;
 using ProjectDomnet.Service.Service.IService;
 using ProjectDomnet.WebAPI.MapperConfig;
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using ProjectDomnet.WebAPI.AutoFacCommon;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,13 +18,8 @@ builder.Services.AddDbContext<ProjectDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
-builder.Services.AddScoped<IVehicleMakeRepository, VehicleMakeRepository>();
-builder.Services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
-
-builder.Services.AddScoped<IVehicleMakeService, VehicleMakeService>();
-builder.Services.AddScoped<IVehicleModelService, VehicleModelService>();
-
-builder.Services.AddAutoMapper(typeof(MapperConfig));
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutoFacCommon()));
 
 var app = builder.Build();
 

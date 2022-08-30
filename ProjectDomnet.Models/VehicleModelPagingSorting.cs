@@ -9,7 +9,7 @@ namespace ProjectDomnet.Models
 {
     public class VehicleModelPagingSorting
     {
-        public PagingSorting pagingSorting { get; set; }
+        public Page page { get; set; }
         public List<VehicleModel> VehicleModelsModel;
     }
 }

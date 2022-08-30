@@ -10,11 +10,10 @@ namespace ProjectDomnet.Service.Service.IService
 {
     public interface IVehicleMakeService
     {
-        Task CreateMake(VehicleMake entity);
-        Task DeleteMake(VehicleMake entity);
-        Task EditMake(VehicleMake entity);
-        Task<VehicleMake> GetMakeById(int id);
-        Task<IEnumerable<VehicleMake>> GetAll();
-        Task<(List<VehicleMake>, int)> VehicleMakePagingAndSorting(PagingSorting pagingSorting);
+        Task CreateMakeAsync(VehicleMake entity);
+        Task DeleteMakeAsync(VehicleMake entity);
+        Task EditMakeAsync(VehicleMake entity);
+        Task<VehicleMake> GetMakeByIdAsync(int id);
+        Task<(List<VehicleMake>, int)> GetAllAsync(Page page);
     }
 }

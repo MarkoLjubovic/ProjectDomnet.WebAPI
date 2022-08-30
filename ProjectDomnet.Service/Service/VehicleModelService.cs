@@ -18,34 +18,29 @@ namespace ProjectDomnet.Service.Service
         {
             _vehicleModelRepository = vehicleModelRepository;
         }
-        public async Task CreateModel(VehicleModel entity)
+        public async Task CreateModelAsync(VehicleModel entity)
         {
-            await _vehicleModelRepository.CreateModel(entity);
+            await _vehicleModelRepository.CreateModelAsync(entity);
         }
 
-        public async Task DeleteModel(VehicleModel entity)
+        public async Task DeleteModelAsync(VehicleModel entity)
         {
-            await _vehicleModelRepository.DeleteModel(entity);
+            await _vehicleModelRepository.DeleteModelAsync(entity);
         }
 
-        public async Task EditModel(VehicleModel entity)
+        public async Task EditModelAsync(VehicleModel entity)
         {
-            await _vehicleModelRepository.EditModel(entity);
+            await _vehicleModelRepository.EditModelAsync(entity);
         }
 
-        public async Task<IEnumerable<VehicleModel>> GetAll()
+        public async Task<VehicleModel> GetModelByIdAsync(int id)
         {
-            return await _vehicleModelRepository.GetAll();
+            return await _vehicleModelRepository.GetModelByIdAsync(id);
         }
 
-        public async Task<VehicleModel> GetModelById(int id)
+        public async Task<(List<VehicleModel>, int)> GetAllAsync(Page page)
         {
-            return await _vehicleModelRepository.GetModelById(id);
-        }
-
-        public async Task<(List<VehicleModel>, int)> VehicleModelPagingSorting(PagingSorting pagingSorting)
-        {
-            return await _vehicleModelRepository.VehicleModelPagingAndSorting(pagingSorting);
+            return await _vehicleModelRepository.GetAllAsync(page);
         }
     }
 }

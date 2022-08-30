@@ -19,11 +19,6 @@ namespace ProjectDomnet.WebAPI.Controllers
             _vehicleMakeService = vehicleMakeService;
             _mapper = mapper;
         }
-        public async Task<IActionResult> Index()
-        {
-            IEnumerable<VehicleMake> vehicleMakes = await _vehicleMakeService.GetAll();
-            return View("~/Views/VehicleMake/Index.cshtml", vehicleMakes);
-        }
 
         //GET
         public IActionResult Create()
@@ -44,14 +39,14 @@ namespace ProjectDomnet.WebAPI.Controllers
 
             var vehicleMake = _mapper.Map<VehicleMake>(createVehicleMake);
 
-            await _vehicleMakeService.CreateMake(vehicleMake);
+            await _vehicleMakeService.CreateMakeAsync(vehicleMake);
             return RedirectToAction("VehicleMakePage", "VehicleMake");
         }
 
         //GET
         public async Task<IActionResult> Edit(int id)
         {
-            var vehicleMake = await _vehicleMakeService.GetMakeById(id);
+            var vehicleMake = await _vehicleMakeService.GetMakeByIdAsync(id);
             if (vehicleMake == null)
             {
                 return View("Error");
@@ -72,7 +67,7 @@ namespace ProjectDomnet.WebAPI.Controllers
             }
 
             var vehicleMake = _mapper.Map<VehicleMake>(editVehicleMake);
-            await _vehicleMakeService.EditMake(vehicleMake);
+            await _vehicleMakeService.EditMakeAsync(vehicleMake);
             return RedirectToAction("VehicleMakePage", "VehicleMake");
         }
 
@@ -84,7 +79,7 @@ namespace ProjectDomnet.WebAPI.Controllers
                 return NotFound();
             }
 
-            var vehicleMake = await _vehicleMakeService.GetMakeById(id);
+            var vehicleMake = await _vehicleMakeService.GetMakeByIdAsync(id);
 
             if (vehicleMake == null)
             {
@@ -98,13 +93,13 @@ namespace ProjectDomnet.WebAPI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletePOST(int id)
         {
-            var vehicleMake = await _vehicleMakeService.GetMakeById(id);
+            var vehicleMake = await _vehicleMakeService.GetMakeByIdAsync(id);
             if (vehicleMake == null)
             {
                 return NotFound();
             }
 
-            await _vehicleMakeService.DeleteMake(vehicleMake);
+            await _vehicleMakeService.DeleteMakeAsync(vehicleMake);
             return RedirectToAction("VehicleMakePage", "VehicleMake");
         }
 
@@ -121,12 +116,11 @@ namespace ProjectDomnet.WebAPI.Controllers
             else
                 searchString = "";
 
-            (var vehicleMakes, int totalPages) = await _vehicleMakeService.VehicleMakePagingAndSorting(new PagingSorting()
+            (var vehicleMakes, int totalPages) = await _vehicleMakeService.GetAllAsync(new Common.Page()
             {
-                PIndex=pgNumber ?? 0,
-                PFilter=searchString,
-                SOrder=sortOrder,
-                PSize=4
+                PgIndex= pgNumber ?? 0,
+                PgFilter= searchString,
+                SortOrder= sortOrder
             });
 
             ViewData["Filter"] = searchString;
@@ -134,10 +128,10 @@ namespace ProjectDomnet.WebAPI.Controllers
             var model = new VehicleMakePagingSorting()
             {
                 VehicleMakesModel = vehicleMakes,
-                pagingSorting = new PagingSorting()
+                page = new Common.Page()
                 {
-                    PIndex=pgNumber??0,
-                    NumPages=totalPages
+                    PgIndex= pgNumber ?? 0,
+                    NumPages= totalPages
                 },
             };
 
