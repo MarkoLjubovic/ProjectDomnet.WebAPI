@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProjectDomnet.Models
 {
-    public class VehicleMakePagingSorting
+    public class VehicleModelPage
     {
-        public PagingSorting pagingSorting { get; set; }
-
-        public List<VehicleMake> VehicleMakesModel;
+        public Page page { get; set; }
+        public List<VehicleModel> VehicleModelsModel;
     }
 }

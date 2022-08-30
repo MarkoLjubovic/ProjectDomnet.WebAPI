@@ -10,11 +10,10 @@ namespace ProjectDomnet.Repository.Repository.IRepository
 {
     public interface IVehicleModelRepository
     {
-        Task<IEnumerable<VehicleModel>> GetAll();
-        Task<VehicleModel> GetModelById(int id);
-        Task CreateModel(VehicleModel entity);
-        Task DeleteModel(VehicleModel entity);
-        Task EditModel(VehicleModel entity);
-        Task<(List<VehicleModel>, int)> VehicleModelPagingAndSorting(PagingSorting pagingSorting);
+        Task<VehicleModel> GetModelByIdAsync(int id);
+        Task CreateModelAsync(VehicleModel entity);
+        Task DeleteModelAsync(VehicleModel entity);
+        Task EditModelAsync(VehicleModel entity);
+        Task<(List<VehicleModel>, int)> GetAllAsync(Page page);
     }
 }

@@ -18,44 +18,39 @@ namespace ProjectDomnet.Repository.Repository
         {
             _db = db;
         }
-        public async Task CreateMake(VehicleMake entity)
+        public async Task CreateMakeAsync(VehicleMake entity)
         {
             _db.Add(entity);
             await _db.SaveChangesAsync();
         }
-
-        public async Task DeleteMake(VehicleMake entity)
+        public async Task DeleteMakeAync(VehicleMake entity)
         {
             _db.Remove(entity);
             await _db.SaveChangesAsync();
         }
 
-        public async Task EditMake(VehicleMake entity)
+        public async Task EditMakeAsync(VehicleMake entity)
         {
             _db.Update(entity);
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<VehicleMake>> GetAll()
-        {
-            return await _db.VehicleMakes.ToListAsync();
-        }
-
-        public async Task<VehicleMake> GetMakeById(int id)
+        public async Task<VehicleMake> GetMakeByIdAync(int id)
         {
             return await _db.VehicleMakes.FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<(List<VehicleMake>, int)> VehicleMakePagingAndSorting(PagingSorting pagingSorting)
+
+        public async Task<(List<VehicleMake>, int)> GetAllAsync(Page page)
         {
             IQueryable<VehicleMake> vehicleMakes;
 
-            if (!String.IsNullOrEmpty(pagingSorting.PFilter))
-                vehicleMakes=_db.VehicleMakes.Where(a=>a.Name.Contains(pagingSorting.PFilter)).AsQueryable();
+            if (!String.IsNullOrEmpty(page.PgFilter))
+                vehicleMakes = _db.VehicleMakes.Where(a => a.Name.Contains(page.PgFilter)).AsQueryable();
             else
-                vehicleMakes=_db.VehicleMakes.AsQueryable();
+                vehicleMakes = _db.VehicleMakes.AsQueryable();
 
-            switch (pagingSorting.SOrder)
+            switch (page.SortOrder)
             {
                 case "name":
                     vehicleMakes = vehicleMakes.OrderBy(a => a.Name);
@@ -68,14 +63,14 @@ namespace ProjectDomnet.Repository.Repository
                     break;
             }
 
-            int pgCounter=await vehicleMakes.CountAsync();
-            int totalPages = (int)Math.Ceiling(pgCounter / (double)3);
+            int pgCounter = await vehicleMakes.CountAsync();
+            int totalPages = (int)Math.Ceiling(pgCounter / (double)4);
 
-            if(totalPages > 0)
+            if (totalPages > 0)
             {
                 totalPages--;
             }
-            return (await vehicleMakes.Skip(pagingSorting.PSize * (int)pagingSorting.PIndex).Take(pagingSorting.PSize).ToListAsync(), totalPages);
+            return (await vehicleMakes.Skip(page.PgSize * (int)page.PgIndex).Take(page.PgSize).ToListAsync(), totalPages);
         }
     }
 }

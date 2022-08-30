@@ -19,34 +19,30 @@ namespace ProjectDomnet.Service.Service
             _vehicleMakeRepository = vehicleMakeRepository;
         }
 
-        public async Task CreateMake(VehicleMake entity)
+        public async Task CreateMakeAsync(VehicleMake entity)
         {
-            await _vehicleMakeRepository.CreateMake(entity);
+            await _vehicleMakeRepository.CreateMakeAsync(entity);
         }
 
-        public async Task DeleteMake(VehicleMake entity)
+        public async Task DeleteMakeAsync(VehicleMake entity)
         {
-            await _vehicleMakeRepository.DeleteMake(entity);
+            await _vehicleMakeRepository.DeleteMakeAync(entity);
         }
 
-        public async Task EditMake(VehicleMake entity)
+        public async Task EditMakeAsync(VehicleMake entity)
         {
-            await _vehicleMakeRepository.EditMake(entity);
+            await _vehicleMakeRepository.EditMakeAsync(entity);
         }
 
-        public async Task<IEnumerable<VehicleMake>> GetAll()
+        public async Task<(List<VehicleMake>, int)> GetAllAsync(Page page)
         {
-            return await _vehicleMakeRepository.GetAll();
+            return await _vehicleMakeRepository.GetAllAsync(page);
         }
 
-        public Task<VehicleMake> GetMakeById(int id)
+        public Task<VehicleMake> GetMakeByIdAsync(int id)
         {
-            return _vehicleMakeRepository.GetMakeById(id);
+            return _vehicleMakeRepository.GetMakeByIdAync(id);
         }
 
-        public async Task<(List<VehicleMake>, int)> VehicleMakePagingAndSorting(PagingSorting pagingSorting)
-        {
-            return await _vehicleMakeRepository.VehicleMakePagingAndSorting(pagingSorting);
-        }
     }
 }

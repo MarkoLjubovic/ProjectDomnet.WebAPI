@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProjectDomnet.Common
 {
-    public class PagingSorting
+    public interface IPaging
     {
-        public string SOrder { get; set; }
-        public int? PIndex { get; set; }
-        public string PFilter { get; set; }
-        public int PSize { get; set; }
+        public int? PgIndex { get; set; }
+        public int PgSize { get; set; }
         public int NumPages { get; set; }
     }
 }

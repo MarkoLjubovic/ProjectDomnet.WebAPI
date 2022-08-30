@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectDomnet.WebAPI", "ProjectDomnet.WebAPI\ProjectDomnet.WebAPI.csproj", "{6FD623B7-9343-49E7-91A4-DEB1EAEF5EC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectDomnet", "ProjectDomnet.WebAPI\ProjectDomnet.csproj", "{6FD623B7-9343-49E7-91A4-DEB1EAEF5EC9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectDomnet.Models", "ProjectDomnet.Models\ProjectDomnet.Models.csproj", "{17661948-EFD7-4301-BD87-C4F4647EA733}"
 EndProject

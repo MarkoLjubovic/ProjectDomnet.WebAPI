@@ -20,15 +20,9 @@ namespace ProjectDomnet.WebAPI.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            IEnumerable<VehicleModel> vehicleModels = await _vehicleModelService.GetAll();
-            return View("~/Views/VehicleModel/Index.cshtml", vehicleModels);
-        }
-
         public async Task<IActionResult> Detail(int id)
         {
-            VehicleModel vehicleModel = await _vehicleModelService.GetModelById(id);
+            VehicleModel vehicleModel = await _vehicleModelService.GetModelByIdAsync(id);
             return View("~/Views/VehicleModel/Detail.cshtml", vehicleModel);
         }
 
@@ -53,14 +47,14 @@ namespace ProjectDomnet.WebAPI.Controllers
 
             var vehicle = _mapper.Map<VehicleModel>(createVehicleModel);
 
-            await _vehicleModelService.CreateModel(vehicle);
+            await _vehicleModelService.CreateModelAsync(vehicle);
             return RedirectToAction("VehicleModelPage", "VehicleModel");
         }
 
         //GET
         public async Task<IActionResult> Edit(int id)
         {
-            var vehicleModel = await _vehicleModelService.GetModelById(id);
+            var vehicleModel = await _vehicleModelService.GetModelByIdAsync(id);
             if (vehicleModel == null)
             {
                 return View("Error");
@@ -83,7 +77,7 @@ namespace ProjectDomnet.WebAPI.Controllers
             }
 
             var vehicleModel = _mapper.Map<VehicleModel>(editVehicleModel);
-            await _vehicleModelService.EditModel(vehicleModel);
+            await _vehicleModelService.EditModelAsync(vehicleModel);
             return RedirectToAction("VehicleModelPage", "VehicleModel");
         }
 
@@ -95,7 +89,7 @@ namespace ProjectDomnet.WebAPI.Controllers
                 return NotFound();
             }
 
-            var vehicleModel = await _vehicleModelService.GetModelById(id);
+            var vehicleModel = await _vehicleModelService.GetModelByIdAsync(id);
 
             if (vehicleModel == null)
             {
@@ -109,17 +103,17 @@ namespace ProjectDomnet.WebAPI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletePOST(int id)
         {
-            var vehicleModel = await _vehicleModelService.GetModelById(id);
+            var vehicleModel = await _vehicleModelService.GetModelByIdAsync(id);
             if (vehicleModel == null)
             {
                 return NotFound();
             }
 
-            await _vehicleModelService.DeleteModel(vehicleModel);
+            await _vehicleModelService.DeleteModelAsync(vehicleModel);
             return RedirectToAction("VehicleModelPage", "VehicleModel");
         }
 
-        public async Task<IActionResult> VehicleMOdelPage(string sortOrder, string currentFilter, string searchString, int? pgNumber)
+        public async Task<IActionResult> VehicleModelPage(string sortOrder, string currentFilter, string searchString, int? pgNumber)
         {
             ViewData["Sort"] = sortOrder;
             ViewData["NameSort"] = "name";
@@ -132,22 +126,22 @@ namespace ProjectDomnet.WebAPI.Controllers
             else
                 searchString = "";
 
-            (var vehicleModels, int totalPages) = await _vehicleModelService.VehicleModelPagingSorting(new PagingSorting()
+            (var vehicleModels, int totalPages) = await _vehicleModelService.GetAllAsync(new Page()
             {
-                PIndex = pgNumber ?? 0,
-                PFilter = searchString,
-                SOrder = sortOrder,
-                PSize=4
+                PgIndex = pgNumber ?? 0,
+                PgFilter = searchString,
+                SortOrder = sortOrder,
+                PgSize=4
             });
 
             ViewData["Filter"] = searchString;
 
-            var model = new VehicleModelPagingSorting()
+            var model = new VehicleModelPage()
             {
                 VehicleModelsModel = vehicleModels,
-                pagingSorting = new PagingSorting()
+                page = new Page()
                 {
-                    PIndex = pgNumber ?? 0,
+                    PgIndex = pgNumber ?? 0,
                     NumPages = totalPages
                 },
             };
